@@ -1,0 +1,9 @@
+.root {
+    display: flex;
+    // align-content: center;
+    // justify-content: center;
+}
+
+.star:not(:last-child){
+    margin-right: 5px;
+} 
