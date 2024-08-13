@@ -43,13 +43,7 @@ export const NewReviewFrom = () => {
 			</div>
 			<div>
 				<label>Rating</label>
-				<input
-					type='number'
-					value={formValue.rating}
-					onChange={e =>
-						dispatch({ type: 'setRating', payload: e.target.value })
-					}
-				/>
+
 				<Rating
 					value={formValue.rating}
 					onChange={rating => {

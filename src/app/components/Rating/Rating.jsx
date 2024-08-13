@@ -22,7 +22,7 @@ export const Rating = ({
 							className={styles.star}
 							key={index}
 							alt={index >= value ? 'black' : 'gold'}
-							onClick={onChange(index)}
+							onClick={() => onChange?.(index + 1)}
 						/>
 					))}
 		</div>
