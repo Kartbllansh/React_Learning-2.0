@@ -4,14 +4,13 @@ import ThumbDown from './images/thumb-down.svg';
 import ThumbUp from './images/thumb-up.svg';
 import { useEffect, useState } from 'react';
 import { Ingredients } from '../Ingredients/Ingredients';
+import { useAmount } from '@/hooks/useAmount';
 
 // Valid for craete ReactApp
 // import { ReactComponent as ThumbUp } from './images/thumb-up.svg';
 
 export const Dish = ({ dish }) => {
-	const [state, setState] = useState(0);
-	const decrement = () => setState(state - 1);
-	const increment = () => setState(state + 1);
+	const { amount, increment, decrement } = useAmount(0);
 
 	if (!dish) {
 		return null;
@@ -24,7 +23,7 @@ export const Dish = ({ dish }) => {
 			<div className={styles.mainInfo}>
 				<span className={styles.title}>{name}</span>
 				<Button
-					disabled={state === 5}
+					disabled={amount === 5}
 					onClick={increment}
 					type={'secondary'}
 					className={styles.incrementAction}
@@ -34,15 +33,15 @@ export const Dish = ({ dish }) => {
 				<Button
 					onClick={decrement}
 					className={styles.decrementAction}
-					disabled={state === 0}
+					disabled={amount === 0}
 				>
 					-
 				</Button>
 
-				<span> Статус:{state || 'Блюдо не выбрано'}</span>
+				<span> Статус:{amount || 'Блюдо не выбрано'}</span>
 			</div>
 			<div>
-				{state > 0 && (
+				{amount > 0 && (
 					<Ingredients
 						ingredients={ingredients}
 						className={styles.ingredients}

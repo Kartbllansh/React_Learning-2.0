@@ -3,38 +3,50 @@ import { Restaurant } from '@/app/components/Restaurant/Restaurant.jsx';
 import { nanoid } from 'nanoid';
 import { Header } from '../Header/Header';
 import { Tabs } from '@/app/components/Tabs/Tabs.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
+
+function getRestaurants() {
+	return restaurants.map(restaurant => ({
+		...restaurant,
+		menu: restaurant.menu.map(dish => ({
+			...dish,
+			ingredients: dish.ingredients.map(ingredient => ({
+				id: nanoid(),
+				name: ingredient,
+			})),
+		})),
+	}));
+}
 
 export function Home() {
 	const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(0);
-	function getRestaurants() {
-		return restaurants.map(restaurant => ({
-			...restaurant,
-			menu: restaurant.menu.map(dish => ({
-				...dish,
-				ingredients: dish.ingredients.map(ingredient => ({
-					id: nanoid(),
-					name: ingredient,
-				})),
-			})),
-		}));
-	}
 
 	const customerRestaurants = getRestaurants();
-	const activeRestaurant = customerRestaurants[activeRestaurantIndex];
 
-	useEffect(() => {
-		localStorage.setItem('activeRestaurantIndex', activeRestaurantIndex);
-	}, [activeRestaurantIndex]);
+	const setActiveRestaurantIndexWithCache = index => {
+		setActiveRestaurantIndex(index);
+		localStorage.setItem('ActiveRestaurantIndex', index);
+	};
+
+	useLayoutEffect(() => {
+		const savedActiveRestaurantIndex = localStorage.getItem(
+			'ActiveRestaurantIndex'
+		);
+		if (savedActiveRestaurantIndex) {
+			setActiveRestaurantIndex(savedActiveRestaurantIndex);
+		}
+	}, []);
+
+	const activeRestaurant = customerRestaurants[activeRestaurantIndex];
 
 	return (
 		<div>
 			<Header />
 			<Tabs
 				restaurants={customerRestaurants}
-				onTabClick={setActiveRestaurantIndex}
+				onTabClick={setActiveRestaurantIndexWithCache}
 			/>
-			<Restaurant key={activeRestaurant.id} restaurant={activeRestaurant} />
+			<Restaurant key={customerRestaurants.id} restaurant={activeRestaurant} />
 		</div>
 	);
 }
