@@ -9,8 +9,8 @@ export const Ingredients = ({ ingredients, className }) => {
 	return (
 		<ul className={className}>
 			{ingredients.map(ingredient => (
-				<li key={ingredient.id} className={styles.ingredient}>
-					<Ingredient ingredient={ingredient.name} />
+				<li key={ingredient} className={styles.ingredient}>
+					<Ingredient ingredient={ingredient} />
 				</li>
 			))}
 		</ul>
