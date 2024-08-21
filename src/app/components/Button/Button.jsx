@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
 import styles from './styles.module.scss';
+import { ThemeContext } from '@/contexts/ThemeContext/themeContext';
 
 const buttonStyles = {
 	primary: styles.primary,
@@ -14,6 +15,8 @@ export function Button({
 	className,
 	onClick,
 }) {
+	const { theme } = useContext(ThemeContext); //тут будет значение ближайшего к этому компоненту поставщика этого контекста
+	console.log(theme);
 	return (
 		<button
 			className={classNames({

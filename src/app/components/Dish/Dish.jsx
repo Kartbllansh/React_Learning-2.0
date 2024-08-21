@@ -5,12 +5,17 @@ import ThumbUp from './images/thumb-up.svg';
 import { useEffect, useState } from 'react';
 import { Ingredients } from '../Ingredients/Ingredients';
 import { useAmount } from '@/hooks/useAmount';
+import { useDispatch, useSelector } from '@/customStore';
 
 // Valid for craete ReactApp
 // import { ReactComponent as ThumbUp } from './images/thumb-up.svg';
 
 export const Dish = ({ dish }) => {
-	const { amount, increment, decrement } = useAmount(0);
+	//const { amount, increment, decrement } = useAmount(0);
+	const amount = useSelector(state => state[dish.name] || 0);
+	const dispatch = useDispatch();
+	const increment = () => dispatch({ type: 'increment', payload: dish.name });
+	const decrement = () => dispatch({ type: 'decrement', payload: dish.name });
 
 	if (!dish) {
 		return null;
