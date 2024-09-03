@@ -3,10 +3,11 @@ import { Menu } from '../Menu/Menu';
 import { NewReviewFrom } from '../NewReviewForm/NewReviewFrom';
 import { Rating } from '../Rating/Rating';
 import { Reviews } from '../Reviews/Reviews';
+import { RestaurantMenuContainer } from '@/app/containers/RestaurantMenu/RestaurantMenu';
 
 export const Restaurant = ({ restaurant }) => {
-	const { name, menu, reviews, id } = restaurant || {};
-	const rating = useMemo(
+	const { name, id } = restaurant || {};
+	/*const rating = useMemo(
 		() =>
 			!!reviews.length
 				? Math.floor(
@@ -15,14 +16,17 @@ export const Restaurant = ({ restaurant }) => {
 				  )
 				: 0,
 		[reviews]
-	);
+	);*/
 
 	return (
 		<div key={id}>
 			<h2>{name}</h2>
-			<Rating value={rating} />
-			<Menu menu={menu} />
-			<Reviews reviews={reviews} />
+			{
+				/*<Rating value={rating} />*/
+				<RestaurantMenuContainer restaurantId={id} />
+				/*<Reviews reviews={reviews} />
+				 */
+			}
 			<NewReviewFrom />
 		</div>
 	);

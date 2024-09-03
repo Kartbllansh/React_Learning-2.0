@@ -1,21 +1,17 @@
-import { createStore } from '@/customStore';
+import { combineReducers, createStore } from 'redux';
+import { cartReducer } from './ui/cart';
+import { restaurantReducer } from './entities/restaurant';
+import { dishReducer } from './entities/dish';
 
+const rootReducer = combineReducers({
+	cart: cartReducer,
+	restaurant: restaurantReducer,
+	dish: dishReducer,
+});
+/* Это равносильная запись
 const rootReducer = (state = {}, action) => {
-	//Наш Reducer, который будет отвечать за логику изменения значений в Store
-	switch (action?.type) {
-		case 'increment':
-			return {
-				...state,
-				[action.payload]: state[action.payload] ? state[action.payload] + 1 : 1,
-			};
-		case 'decrement':
-			return {
-				...state,
-				[action.payload]: state[action.payload] ? state[action.payload] - 1 : 0,
-			};
-
-		default:
-			return state;
-	}
-};
+	return {
+		cart: cartReducer(state.cart, action),
+	};
+};*/
 export const store = createStore(rootReducer); //Иницилизируем Store в первый раз

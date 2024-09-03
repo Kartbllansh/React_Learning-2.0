@@ -16,7 +16,6 @@ export function Button({
 	onClick,
 }) {
 	const { theme } = useContext(ThemeContext); //тут будет значение ближайшего к этому компоненту поставщика этого контекста
-	console.log(theme);
 	return (
 		<button
 			className={classNames({

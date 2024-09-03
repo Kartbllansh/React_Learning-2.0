@@ -5,17 +5,15 @@ import ThumbUp from './images/thumb-up.svg';
 import { useEffect, useState } from 'react';
 import { Ingredients } from '../Ingredients/Ingredients';
 import { useAmount } from '@/hooks/useAmount';
-import { useDispatch, useSelector } from '@/customStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrementDish, incrementDish } from '@/store/ui/cart/actions';
+import { selectDishAmount } from '@/store/ui/cart/selectors';
 
 // Valid for craete ReactApp
 // import { ReactComponent as ThumbUp } from './images/thumb-up.svg';
 
-export const Dish = ({ dish }) => {
+export const Dish = ({ dish, amount, increment, decrement }) => {
 	//const { amount, increment, decrement } = useAmount(0);
-	const amount = useSelector(state => state[dish.name] || 0);
-	const dispatch = useDispatch();
-	const increment = () => dispatch({ type: 'increment', payload: dish.name });
-	const decrement = () => dispatch({ type: 'decrement', payload: dish.name });
 
 	if (!dish) {
 		return null;
@@ -46,12 +44,12 @@ export const Dish = ({ dish }) => {
 				<span> Статус:{amount || 'Блюдо не выбрано'}</span>
 			</div>
 			<div>
-				{amount > 0 && (
+				{/*mount > 0 && (
 					<Ingredients
 						ingredients={ingredients}
 						className={styles.ingredients}
 					/>
-				)}
+				)*/}
 			</div>
 		</div>
 	);

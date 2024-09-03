@@ -1,11 +1,11 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
 
-export const useActiveIndex = ({ initialState = 0, localStorageName }) => {
-	const [activeIndex, setActiveIndex] = useState(initialState);
+export const useActiveId = ({ initialActiveId, localStorageName }) => {
+	const [activeRestaurantId, setActiveRestaurantId] = useState(initialActiveId);
 
-	const setActiveIndexWithCache = useCallback(
+	const setActiveIdWithCache = useCallback(
 		index => {
-			setActiveIndex(index);
+			setActiveRestaurantId(index);
 			if (localStorageName) localStorage.setItem(localStorageName, index);
 		},
 		[localStorageName]
@@ -13,9 +13,9 @@ export const useActiveIndex = ({ initialState = 0, localStorageName }) => {
 
 	useLayoutEffect(() => {
 		if (localStorageName) {
-			const savedActiveIndex = localStorage.getItem(localStorageName);
-			if (savedActiveIndex) {
-				setActiveIndex(savedActiveIndex);
+			const savedActiveId = localStorage.getItem(localStorageName);
+			if (savedActiveId) {
+				setActiveRestaurantId(savedActiveId);
 			}
 		}
 	}, []); //Массив зависимостей мы принципиально оставляем пустым для того, чтобы useLayoutEffect срабатывал только один раз при amounte.
@@ -25,7 +25,7 @@ export const useActiveIndex = ({ initialState = 0, localStorageName }) => {
 	// Надо было постараться сделать хук максимально общим. Для этого надо вынести логику localStorage в параметры.
 
 	return {
-		activeIndex,
-		setActiveIndex: setActiveIndexWithCache,
+		activeRestaurantId,
+		setActiveRestaurantId: setActiveIdWithCache,
 	};
 };
