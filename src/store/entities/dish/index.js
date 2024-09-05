@@ -7,6 +7,7 @@ const initialState = {
 	}, {}),
 	ids: normalizedDishes.map(({ id }) => id),
 };
+
 export const dishReducer = (state = initialState, action) => {
 	return state;
 };

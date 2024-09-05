@@ -9,6 +9,7 @@ import { store } from '@/store';
 import { Cart } from '../Cart/Cart';
 import { RestaurantsTabsContainer } from '@/app/containers/RestaurantsTabs/RestaurantsTabs';
 import { RestaurantContainer } from '@/app/containers/Restaurant/Restaurant';
+import { CartContainer } from '@/app/containers/Cart/Cart';
 
 export function Home() {
 	const { activeRestaurantId, setActiveRestaurantId } = useActiveId({
@@ -27,7 +28,7 @@ export function Home() {
 					{activeRestaurantId && (
 						<RestaurantContainer restaurantId={activeRestaurantId} />
 					)}
-					<Cart />
+					<CartContainer />
 				</div>
 			</ThemeContextProvider>
 		</Provider>

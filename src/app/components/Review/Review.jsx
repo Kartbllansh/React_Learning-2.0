@@ -1,17 +1,15 @@
-import { Rating } from '@/app/components/Rating/Rating.jsx'
+import { Rating } from '@/app/components/Rating/Rating.jsx';
+import { UserContainer } from '@/app/containers/User/User';
 
-export const Review = ({ review }) => {
-  if (!review) {
-    return null;
-  }  
+export const Review = ({ review, className }) => {
+	const { rating, text, userId } = review;
 
-  const { rating, text, user } = review;
-
-  return (
-    <div>
-        <Rating value={rating}/>
-        <p>{`Message: ${text}`}</p>
-        <p>{`Customer: ${user}`}</p>
-    </div>
-  );
+	return (
+		<div className={className}>
+			<span>{'Customer:'}</span>
+			<UserContainer userId={userId} />
+			<Rating value={rating} />
+			<p>{`Message: ${text}`}</p>
+		</div>
+	);
 };
